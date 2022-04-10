@@ -35,11 +35,11 @@ Navigate to the following GitHub repo - https://github.com/papicella/springboote
 * Ensure you are forking this repo to your public GitHub account
 * Click done
 
-![alt tag](TODO://boot employee app)
+![alt tag](https://i.ibb.co/G3q6ZKR/snyk-K8s-container-iac-workshop.png)
 
 ## Step 2 Configure GitHub Integration
 
-First we need to connect Snyk to GitHub so we can import our Repository. Do so by:
+First we need to connect Snyk to GitHub, so we can import our Repository. Do so by:
 
 * Login to http://app.snyk.io Sign up if you haven't already.
 * Navigating to Integrations -> Source Control -> GitHub
@@ -80,12 +80,11 @@ Login Succeeded
 * Pull down the following image as shown below.
 
 ```bash
-$ docker pull pasapples/docker-goof
-Using default tag: latest
-latest: Pulling from pasapples/docker-goof
-Digest: sha256:be2d6b0f5041315f632f44e3528ea513c452cc95ed4a40bc3d70f943ab293e5f
-Status: Downloaded newer image for pasapples/docker-goof:latest
-docker.io/pasapples/docker-goof:latest
+$ docker pull pasapples/springbootemployee:multi-stage-add-layers
+multi-stage-add-layers: Pulling from pasapples/springbootemployee
+Digest: sha256:6e6f1a2df2034fabcb771cddb9dd9c6253c9edee692d208740cdc85573f56ce0
+Status: Image is up to date for pasapples/springbootemployee:multi-stage-add-layers
+docker.io/pasapples/springbootemployee:multi-stage-add-layers
 ```
 
 * Run the following commands to TAG and PUSH the image to your Docker Hub account.
@@ -93,26 +92,19 @@ docker.io/pasapples/docker-goof:latest
 Note: Replace DOCKER_HUB_USERNAME with your Docker Bub username.
 
 ```bash
-$ docker tag pasapples/docker-goof:latest DOCKER_HUB_USERNAME/docker-goof:latest
+$ docker tag pasapples/springbootemployee:multi-stage-add-layers DOCKER_HUB_USERNAME/springbootemployee:multi-stage-add-layers
 
-$ $ docker push DOCKER_HUB_USERNAME/docker-goof:latest
-The push refers to repository [docker.io/pasapples/docker-goof]
-1bc5d83ccce7: Layer already exists
-35bda1fbb3d0: Layer already exists
+$ docker push DOCKER_HUB_USERNAME/springbootemployee:multi-stage-add-layers
+The push refers to repository [docker.io/pasapples/springbootemployee]
+e48e57561479: Layer already exists
+a185292d58d7: Layer already exists
 5f70bf18a086: Layer already exists
-fbd39f37d7c2: Layer already exists
-938fc2ad056c: Layer already exists
-c24944d2eccc: Layer already exists
-02a318dedbea: Layer already exists
-7972420bc26e: Layer already exists
-17c76043bf23: Layer already exists
-496d6557f1e3: Layer already exists
-867786449541: Layer already exists
-92d17ee6d9da: Layer already exists
-e54368741774: Layer already exists
-5a6c4d956b5d: Layer already exists
-86ab2c6c5d58: Layer already exists
-latest: digest: sha256:be2d6b0f5041315f632f44e3528ea513c452cc95ed4a40bc3d70f943ab293e5f size: 3466
+5de890f07ce7: Layer already exists
+85b7d768b242: Layer already exists
+0376aa443261: Layer already exists
+1ffea8569203: Layer already exists
+f18b02b14138: Layer already exists
+multi-stage-add-layers: digest: sha256:6e6f1a2df2034fabcb771cddb9dd9c6253c9edee692d208740cdc85573f56ce0 size: 1996
 ```
 
 * Return to the Snyk Dashboard and click on "**Add your Docker Hub Images to Snyk**"
