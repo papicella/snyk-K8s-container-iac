@@ -26,7 +26,7 @@ _NOTE: Please ensure you have meet the Prerequisites prior to starting this work
 
 _Note: It is assumed your using a mac for these steps but it should also work on windows or linux with some modifications to the scripts potentially_
 
-## Step 1 Fork the Goof Application
+## Step 1 Fork the Springboot Employee API Application
 
 Navigate to the following GitHub repo - https://github.com/papicella/springbootemployee-api
 
@@ -150,7 +150,7 @@ For each Vulnerability, Snyk displays the following ordered by our [Proprietary 
 1. Social Trends
 1. Plus more ...
 
-## Step 5 Find vulnerabilities in Goof’s Dockerfile
+## Step 5 Find vulnerabilities in Springboot Employee API Dockerfile
 
 Snyk detects vulnerable base images by scanning your Dockerfile when importing a Git repository. This allows you to examine security issues before building the image, so helps solve potential problems before they land in your registry or in production.
 
@@ -158,19 +158,19 @@ Now that Snyk is connected to your GitHub Account, import the Repo into Snyk as 
 
 * Navigate to Projects
 * Click "**Add Project**" then select "**GitHub**"
-* Click on the Repo "goof" that you forked earlier at Step 1.
+* Click on the Repo "**springbootemployee**" that you forked earlier at Step 1.
 
 ![alt tag](https://i.ibb.co/q9Rsxsh/snyk-starter-open-source-3.png)
 
 _Note: The import can take up to one minute, so you can view the import log while it's running as shown below_
 
-![alt tag](https://i.ibb.co/RQsX6jZ/snyk-starter-open-source-14.png)
+![alt tag](https://i.ibb.co/S7G00S7/snyk-K8s-container-iac-workshop-6.png)
 
 * Once imported you should see a reference for the Dockerfile as shown below.
 
-![alt tag](https://i.ibb.co/1rNMFhC/snyk-container-9.png)
+![alt tag](https://i.ibb.co/FxbWNZR/snyk-K8s-container-iac-workshop-7.png)
 
-* Go ahead and click on the Dockerfile this is similar to what a scan of a container from a registry looks like BUT this tim we are scanning a Dockerfile itself versus the full container image.
+* Go ahead and click on the Dockerfile this is similar to what a scan of a container from a registry looks like BUT this time we are scanning a Dockerfile itself versus the full container image.
 
 In a Dockerfile project, you can find the relevant metadata of the Dockerfile and the base image used. If the base image is an [Official Docker image](https://docs.docker.com/docker-hub/official_images/), the results include recommendations for upgrades to resolve some of the discovered vulnerabilities
 
@@ -178,25 +178,25 @@ In a Dockerfile project, you can find the relevant metadata of the Dockerfile an
 
 Here we will go ahead and fix our Dockerfile using the "**Open a Fix PR**" button as follows:
 
-* Click on "**Open a Fix PR**" for the base image "**node:16.6.0-slim**" as per below
+* Click on "**Open a Fix PR**" for the base image "**openjdk:19-ea-15-jdk-oracle**" as per below
 
-![alt tag](https://i.ibb.co/5kY26FR/snyk-container-13.png)
+![alt tag](https://i.ibb.co/JRLPvgq/snyk-K8s-container-iac-workshop-8.png)
 
 * Click on "**Open a Fix PR**" on the resulting page as shown below
 
-![alt tag](https://i.ibb.co/C0tn01C/snyk-container-14.png)
+![alt tag](https://i.ibb.co/GpbycFK/snyk-K8s-container-iac-workshop-9.png)
 
 * A PR is then created as show below. "**Files Changed**" will show you what it's updating in the Dockerfile itself
 
-![alt tag](https://i.ibb.co/py4GdJS/snyk-container-15.png)
+![alt tag](https://i.ibb.co/RcDrr2r/snyk-K8s-container-iac-workshop-10.png)
 
 * Click on "**Merge Pull Request**" button as shown below
 
-![alt tag](https://i.ibb.co/hCwDCFP/snyk-container-16.png)
+![alt tag](https://i.ibb.co/4FVzZNq/snyk-K8s-container-iac-workshop-11.png)
 
 * Return to the projects dashboard and you will see a new scan has occurred automatically and now our Dockerfile shows much less issues than previously. Of course until we build a new container and add it to the registry the container itself will still have the old base image in place.
 
-![alt tag](https://i.ibb.co/pbqmR1v/snyk-container-17.png)
+![alt tag](https://i.ibb.co/bN9P3XQ/snyk-K8s-container-iac-workshop-12.png)
 
 ## Step 7 Container Test using the Snyk CLI
 
