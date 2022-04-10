@@ -8,8 +8,12 @@ In this hands-on workshop we will achieve the follow:
 * [Step 2 Configure GitHub Integration](#step-2-configure-github-integration)
 * [Step 3 Configure Docker Hub Integration](#step-3-configure-docker-hub-integration)
 * [Step 4 Test using the Add to Project Docker Hub Integration](#step-4-test-using-the-add-to-project-docker-hub-integration)
+* Step 5 Find vulnerabilities in Springboot Employee API Dockerfile
+* Step 6 Fix the Dockerfile FROM tag using a Pull Request
+* Step 7 View Kubernetes IaC config file scan 
+* Step 8 Snyk CLI scanning for container images and IaC config files
+* Step 9 Snyk Kubernetes Integration
 
-TODO://
 
 ## Prerequisites
 
@@ -198,7 +202,11 @@ Here we will go ahead and fix our Dockerfile using the "**Open a Fix PR**" butto
 
 ![alt tag](https://i.ibb.co/bN9P3XQ/snyk-K8s-container-iac-workshop-12.png)
 
-## Step 7 Container Test using the Snyk CLI
+## Step 7 View Kubernetes IaC config file scan
+
+TODO://
+
+## Step 8 Snyk CLI scanning for container images and IaC config files
 
 The Snyk CLI can run a container test on containers sitting in a registry and even your local docker deamon if you like. All the Snyk CLI needs is access to the registry itself which is for public Docker Hub images only requires a "docker login" to achieve that. The following examples show how to use the Snyk CLI to issue a container test.
 
@@ -211,7 +219,7 @@ _Note: Make sure you have the following version installed or later_
 
 ```bash
 $ snyk --version
-1.675.0
+1.898.0
 ```
 
 * Authorize the Snyk CLI with your account as follows
@@ -228,7 +236,6 @@ https://snyk.io/login?token=ff75a099-4a9f-4b3d-b75c-bf9847672e9c&utm_medium=cli&
 
 Your account has been authenticated. Snyk is now ready to be used.
 ```
-
 _Note: If you are having trouble authenticating via a browser with the Snyk App you can setup authentication using the API token as shown below
 [Authenticate using your API token](https://support.snyk.io/hc/en-us/articles/360004008258-Authenticate-the-CLI-with-your-account#UUID-4f46843c-174d-f448-cadf-893cfd7dd858_section-idm4557419555668831541902780562)_
 
@@ -239,174 +246,65 @@ _Note: Testing container images through the CLI performs the following steps, so
 3. Sends that bill of materials to the Snyk Service
 4. Returns a list of the vulnerabilities in your image
 
-* You have already built "docker-goof" so go ahead and test that as shown below, please use your dockerhub account username rather than "**pasapples**"
+* You have already built "**springbootemployee**" so go ahead and test that as shown below, please use your dockerhub account username rather than "**pasapples**"
 
 ```bash
-$ snyk container test pasapples/docker-goof:latest
+❯ snyk container test pasapples/springbootemployee:multi-stage-add-layers
 
-...
+Testing pasapples/springbootemployee:multi-stage-add-layers...
 
-Tested 412 dependencies for known issues, found 889 issues.
-
-Base Image  Vulnerabilities  Severity
-node:14.1   889              45 critical, 186 high, 196 medium, 462 low
-
-Recommendations for base image upgrade:
-
-Minor upgrades
-Base Image  Vulnerabilities  Severity
-node:14.17  530              9 critical, 46 high, 40 medium, 435 low
-
-Major upgrades
-Base Image   Vulnerabilities  Severity
-node:16.5.0  344              3 critical, 31 high, 49 medium, 261 low
-
-Alternative image types
-Base Image                Vulnerabilities  Severity
-node:16.6.0-slim          60               2 critical, 8 high, 5 medium, 45 low
-node:16.6.1-buster-slim   60               2 critical, 8 high, 5 medium, 45 low
-node:16.6.0-buster        343              3 critical, 30 high, 49 medium, 261 low
-node:16.6.0-stretch-slim  78               6 critical, 11 high, 8 medium, 53 low
-```
-
-* The following container test is for a Spring Boot application
-
-```bash
-$ snyk container test pasapples/springbootemployee:cnb
-
+✗ Low severity vulnerability found in xz-utils/liblzma5
+  Description: CVE-2022-1271
+  Info: https://snyk.io/vuln/SNYK-DEBIAN10-XZUTILS-2444279
+  Introduced through: meta-common-packages@meta
+  From: meta-common-packages@meta > xz-utils/liblzma5@5.2.4-1
+  
 ....
 
-Organization:      pas.apicella-41p
-Package manager:   deb
-Project name:      docker-image|pasapples/springbootemployee
-Docker image:      pasapples/springbootemployee:cnb
-Platform:          linux/amd64
-Base image:        ubuntu:bionic-20210325
-Licenses:          enabled
+Tested 91 dependencies for known issues, found 75 issues.
 
-Tested 97 dependencies for known issues, found 32 issues.
-
-Base Image              Vulnerabilities  Severity
-ubuntu:bionic-20210325  31               0 critical, 1 high, 6 medium, 24 low
+Base Image                   Vulnerabilities  Severity
+openjdk:11.0.13-slim-buster  75               0 critical, 4 high, 1 medium, 70 low
 
 Recommendations for base image upgrade:
 
-Minor upgrades
-Base Image              Vulnerabilities  Severity
-ubuntu:bionic-20210723  25               0 critical, 0 high, 3 medium, 22 low
-
 Major upgrades
-Base Image    Vulnerabilities  Severity
-ubuntu:20.04  15               0 critical, 0 high, 0 medium, 15 low
-```
+Base Image                  Vulnerabilities  Severity
+openjdk:17.0.2-slim-buster  72               0 critical, 2 high, 0 medium, 70 low
 
-* There is also a Distroless version if you would like to try with that
-
-```bash
-$ snyk container test pasapples/spring-crud-thymeleaf-demo:distroless
-
-...
-
-Organization:      pas.apicella-41p
-Package manager:   deb
-Project name:      docker-image|pasapples/spring-crud-thymeleaf-demo
-Docker image:      pasapples/spring-crud-thymeleaf-demo:distroless
-Platform:          linux/amd64
-Licenses:          enabled
-
-Tested 20 dependencies for known issues, found 38 issues.
-```
-
-* The CLI also allows us to report vulnerabilities of provided level or higher. Now let's go ahead and set that to HIGH using "**--severity-threshold=high**". Only issues tagged as HIGH or CRITICAL will appear on this test run.
-
-```shell
-$ snyk container test --severity-threshold=high pasapples/springbootemployee:cnb
-
-Testing pasapples/springbootemployee:cnb...
-
-✗ High severity vulnerability found in systemd/libsystemd0
-  Description: Allocation of Resources Without Limits or Throttling
-  Info: https://snyk.io/vuln/SNYK-UBUNTU1804-SYSTEMD-1320128
-  Introduced through: systemd/libsystemd0@237-3ubuntu10.46, apt/libapt-pkg5.0@1.6.13, procps/libprocps6@2:3.3.12-3ubuntu1.2, util-linux/bsdutils@1:2.31.1-0.4ubuntu3.7, util-linux/mount@2.31.1-0.4ubuntu3.7, systemd/libudev1@237-3ubuntu10.46
-  From: systemd/libsystemd0@237-3ubuntu10.46
-  From: apt/libapt-pkg5.0@1.6.13 > systemd/libsystemd0@237-3ubuntu10.46
-  From: procps/libprocps6@2:3.3.12-3ubuntu1.2 > systemd/libsystemd0@237-3ubuntu10.46
-  and 5 more...
-  Fixed in: 237-3ubuntu10.49
-
-✗ High severity vulnerability found in openssl
-  Description: Buffer Overflow
-  Info: https://snyk.io/vuln/SNYK-UBUNTU1804-OPENSSL-1569474
-  Introduced through: openssl@1.1.1-1ubuntu2.1~18.04.9, ca-certificates@20210119~18.04.1, openssl/libssl1.1@1.1.1-1ubuntu2.1~18.04.9
-  From: openssl@1.1.1-1ubuntu2.1~18.04.9
-  From: ca-certificates@20210119~18.04.1 > openssl@1.1.1-1ubuntu2.1~18.04.9
-  From: openssl/libssl1.1@1.1.1-1ubuntu2.1~18.04.9
-  and 1 more...
-  Fixed in: 1.1.1-1ubuntu2.1~18.04.13
+Alternative image types
+Base Image                    Vulnerabilities  Severity
+openjdk:19-ea-13-oracle       1                0 critical, 0 high, 1 medium, 0 low
+openjdk:18-jdk                1                0 critical, 0 high, 1 medium, 0 low
+openjdk:oracle                1                0 critical, 0 high, 1 medium, 0 low
+openjdk:11.0.14.1-jdk-oracle  1                0 critical, 0 high, 1 medium, 0 low
 
 
+Learn more: https://docs.snyk.io/products/snyk-container/getting-around-the-snyk-container-ui/base-image-detection
 
-Organization:      pas.apicella-41p
-Package manager:   deb
-Project name:      docker-image|pasapples/springbootemployee
-Docker image:      pasapples/springbootemployee:cnb
-Platform:          linux/amd64
-Base image:        ubuntu:bionic-20210325
-Licenses:          enabled
-
-Tested 97 dependencies for known issues, found 2 issues.
-
-Base Image              Vulnerabilities  Severity
-ubuntu:bionic-20210325  31               0 critical, 1 high, 6 medium, 24 low
-
-Recommendations for base image upgrade:
-
-Minor upgrades
-Base Image              Vulnerabilities  Severity
-ubuntu:bionic-20210723  25               0 critical, 0 high, 3 medium, 22 low
-
-Major upgrades
-Base Image    Vulnerabilities  Severity
-ubuntu:20.04  15               0 critical, 0 high, 0 medium, 15 low
-
-```
-
-The severity threshold allows you to break a build in the event of this threshold being meet using the exit code of the command.
-
-```
-Possible exit codes and their meaning:
-
-0: success, no vulns found
-1: action_needed, vulns found
-2: failure, try to re-run the command
-3: failure, no supported projects detected
 ```
 
 * Finally, can monitor container images using the "**snyk container monitor**" command as shown below, please perform this step now using a different container image this time
 
 ```bash
-$ snyk container monitor pasapples/spring-crud-thymeleaf-demo:latest --project-name=spring-crud-thymeleaf-demo-container
+$ snyk container monitor pasapples/springbootemployee:multi-stage-add-layers --org=workshops-admin-org
 
-Monitoring pasapples/spring-crud-thymeleaf-demo:latest (spring-crud-thymeleaf-demo-container)...
+Monitoring pasapples/springbootemployee:multi-stage-add-layers (docker-image|pasapples/springbootemployee)...
 
-Explore this snapshot at https://app.snyk.io/org/workshops-admin-org/project/1cce2457-a6ac-4f09-8465-9ca596a966fa/history/a253804a-bdb2-4ed1-a7d6-54a321e7f725
+Explore this snapshot at https://app.snyk.io/org/workshops-admin-org/project/ee854907-2a5c-4973-8327-97b6b3245146/history/7faf02db-dde6-42e9-b331-e38cba7f6d54
 
 Notifications about newly disclosed issues related to these dependencies will be emailed to you.
 ```
 
-![alt tag](https://i.ibb.co/vY63PXR/snyk-container-12.png)
+* Return to Snyk App UI projects page to see the CLI scan result
 
-* Return to the Snyk App and this time you will see the container image
+![alt tag](https://i.ibb.co/s6nJ2VB/snyk-K8s-container-iac-workshop-13.png)
 
-## Step 8 Container Reporting Dashboard
+## Step 9 Snyk Kubernetes Integration
 
-_Note: It can take up to an hour for report pages to show full details so if you see very little detail that would be why_
+This step will be performed in the workshop by the host so please wait for that demo to be shown live
 
-* Back to the Snyk App navigate to the projects page and select "**View report**" for the "**docker-goof**" project as shown below
-
-* The following report page for the "**docker-goof**" container should be displayed
-
-![alt tag](https://i.ibb.co/yPFVyt2/snyk-container-11.png)
+**Note: Snyk Kubernetes Integration is an Enterprise License feature and can't be used on FREE tier accounts**
 
 Thanks for attending and completing this workshop
 
