@@ -8,12 +8,11 @@ In this hands-on workshop we will achieve the follow:
 * [Step 2 Configure GitHub Integration](#step-2-configure-github-integration)
 * [Step 3 Configure Docker Hub Integration](#step-3-configure-docker-hub-integration)
 * [Step 4 Test using the Add to Project Docker Hub Integration](#step-4-test-using-the-add-to-project-docker-hub-integration)
-* Step 5 Find vulnerabilities in Springboot Employee API Dockerfile
-* Step 6 Fix the Dockerfile FROM tag using a Pull Request
-* Step 7 View Kubernetes IaC config file scan 
-* Step 8 Snyk CLI scanning for container images and IaC config files
-* Step 9 Snyk Kubernetes Integration
-
+* [Step 5 Find vulnerabilities in Springboot Employee API Dockerfile](#step-5-find-vulnerabilities-in-springboot-employee-api-dockerfile)
+* [Step 6 Fix the Dockerfile FROM tag using a Pull Request](#step-6-fix-the-dockerfile-from-tag-using-a-pull-request)
+* [Step 7 View Kubernetes IaC config file scan](#step-7-view-kubernetes-iac-config-file-scan)
+* [Step 8 Snyk CLI scanning for container images](#step-8-snyk-cli-scanning-for-container-images)
+* [Step 9 Snyk Kubernetes Integration](#step-9-snyk-kubernetes-integration)
 
 ## Prerequisites
 
