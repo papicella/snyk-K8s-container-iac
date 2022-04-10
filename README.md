@@ -4,13 +4,12 @@ TODO://
 
 In this hands-on workshop we will achieve the follow:
 
-* [Step 1 Fork the Goof Application](#step-1-fork-the-goof-application)
+* [Step 1 Fork the Springboot Employee API Application](#step-1-fork-the-springboot-employee-api-application)
 * [Step 2 Configure GitHub Integration](#step-2-configure-github-integration)
 * [Step 3 Configure Docker Hub Integration](#step-3-configure-docker-hub-integration)
 * [Step 4 Test using the Add to Project Docker Hub Integration](#step-4-test-using-the-add-to-project-docker-hub-integration)
-* [Step 5 Find vulnerabilities in Goof’s Dockerfile](#step-5-find-vulnerabilities-in-goofs-dockerfile)
-* [Step 6 Fix the Dockerfile FROM tag using a Pull Request](#step-6-fix-the-dockerfile-from-tag-using-a-pull-request)
-* [Step 7 Container Test using the Snyk CLI](#step-7-container-test-using-the-snyk-cli)
+
+TODO://
 
 ## Prerequisites
 
@@ -109,17 +108,19 @@ multi-stage-add-layers: digest: sha256:6e6f1a2df2034fabcb771cddb9dd9c6253c9edee6
 
 * Return to the Snyk Dashboard and click on "**Add your Docker Hub Images to Snyk**"
 
-* Search for "**docker-goof**" and then select it and click "**Add Selected Repositories**"
+* Search for "**springbootemployee**" and then select that container image using the tag "**multi-stage-add-layers**" and click "**Add Selected Repositories**"
 
-![alt tag](https://i.ibb.co/mq421V8/snyk-container-3.png)
+![alt tag](https://i.ibb.co/ZLQx6RL/snyk-K8s-container-iac-workshop-2.png)
 
 * This may take a few minutes, so you can view the Import using the link provided as follows
 
-![alt tag](https://i.ibb.co/PQy4pzq/snyk-container-4.png)
+![alt tag](https://i.ibb.co/WxqFVGh/snyk-K8s-container-iac-workshop-3.png)
 
-* Once complete your container scan should appear as follows
+* Once complete your container scan should appear as follows.
 
-![alt tag](https://i.ibb.co/NTX9KV2/snyk-container-5.png)
+_Note: Ignore the import warnings this will be explained in the workshop why this occurs_
+
+![alt tag](https://i.ibb.co/hK7bZ61/snyk-K8s-container-iac-workshop-4.png)
 
 When Snyk Container scans an image, using any of the available integrations, we first find the software installed in the image, including:
 
@@ -131,9 +132,9 @@ _Note: the container does not need to be run as Snyk reads the info from the fil
 
 After we have the list of installed software, we look that up against our vulnerability database, which combines public sources with proprietary research
 
-* Let's go ahead and click on the "**latest**" link to view the container issues as part of the scan
+* Let's go ahead and click on the "**multi-stage-add-layers**" link to view the container issues as part of the scan
 
-![alt tag](https://i.ibb.co/HGS4MSP/snyk-container-7.png)
+![alt tag](https://i.ibb.co/d4Mczcv/snyk-K8s-container-iac-workshop-5.png)
 
 One thing you will notice is recommendations for upgrading the base image. This is handy as we can remove a substantial amount of issues just by using an alternative base image from minor upgrades to major upgrades if available will be shown including what issues will remain if the basde image is changed and the container re-built.  
 
