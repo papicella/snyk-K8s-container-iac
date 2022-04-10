@@ -202,11 +202,25 @@ Here we will go ahead and fix our Dockerfile using the "**Open a Fix PR**" butto
 
 ![alt tag](https://i.ibb.co/bN9P3XQ/snyk-K8s-container-iac-workshop-12.png)
 
-## Step 7 View Kubernetes IaC config file scan
+## Step 7 View Kubernetes IaC config file scan from SCM
 
-TODO://
+Snyk IaC allows you to inspect, find and fix issues in configuration files for Terraform, Cloudformation, ARM Templates or Kubernetes config.
 
-## Step 8 Snyk CLI scanning for container images and IaC config files
+* Return to the projects view page as shown below and notice how we have a "**employee-K8s.yaml**" file which has been scanned. Go Ahead and click on it
+
+![alt tag](https://i.ibb.co/mHPmgDv/snyk-K8s-container-iac-workshop-14.png)
+
+* For each Vulnerability, Snyk displays the following ordered by Line no:
+
+1. Each Vulnerability grouped by line no and severity 
+2. Each Vulnerability links to the Snyk policy it was defined against including the path to the issue, what the issue is, the impact and how to resolve it
+3. The ability to ignore issues you wish to remove from the list
+
+![alt tag](https://i.ibb.co/Hg7nsFc/snyk-K8s-container-iac-workshop-15.png)
+
+Go ahead and fix one of the IaC security issues identified by Snyk if you have time
+
+## Step 8 Snyk CLI scanning for container images
 
 The Snyk CLI can run a container test on containers sitting in a registry and even your local docker deamon if you like. All the Snyk CLI needs is access to the registry itself which is for public Docker Hub images only requires a "docker login" to achieve that. The following examples show how to use the Snyk CLI to issue a container test.
 
@@ -311,4 +325,4 @@ Thanks for attending and completing this workshop
 ![alt tag](https://i.ibb.co/7tnp1B6/snyk-logo.png)
 
 <hr />
-Pas Apicella [pas at snyk.io] is an Solution Engineer at Snyk APJ
+Pas Apicella [pas at snyk.io] is a Principal Solution Engineer APJ at Snyk
