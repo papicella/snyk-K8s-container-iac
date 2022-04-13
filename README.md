@@ -93,7 +93,7 @@ docker.io/pasapples/springbootemployee:multi-stage-add-layers
 
 * Run the following commands to TAG and PUSH the image to your Docker Hub account.
 
-Note: Replace DOCKER_HUB_USERNAME with your Docker Hub username.
+_Note: Replace DOCKER_HUB_USERNAME with your Docker Hub username._
 
 ```bash
 $ docker tag pasapples/springbootemployee:multi-stage-add-layers DOCKER_HUB_USERNAME/springbootemployee:multi-stage-add-layers
