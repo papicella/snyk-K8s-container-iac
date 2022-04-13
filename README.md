@@ -1,10 +1,10 @@
 # Introduction to Snyk Container and IaC Workshop
 
-Snyk Container helps you find and fix vulnerabilities in container images. With snyk container you can scale your security capabilities by enabling developers to quickly eliminate a multitude of vulnerabilities by upgrading to a more secure base image or rebuilding when the base image is outdated. You may not always have access to the original source code that runs in your containers, but vulnerabilities in your code dependencies are still important. Snyk can detect and monitor open source dependencies for popular languages as part of the container scan
+Snyk Container helps you find and fix vulnerabilities in container images. With snyk container you can scale your security capabilities by enabling developers to quickly eliminate a multitude of vulnerabilities by upgrading to a more secure base image or rebuilding when the base image is outdated. You may not always have access to the original source code that runs in your containers, but vulnerabilities in your code dependencies are still important. Snyk can detect and monitor open source dependencies for popular languages as part of the container scan.
 
-Snyk Infrastructure as Code allows you to find and fix vulnerabilities in your Kubernetes, Helm, Terraform and CloudFormation configuration files. Developer-focused infrastructure as code security with Snyk allows you to test and monitor Terraform modules and Kubernetes YAML, JSON, and Helm charts to detect configuration issues that could open your deployments to attack and malicious behavior.
+Snyk Infrastructure as Code allows you to find and fix vulnerabilities in your Kubernetes, Helm, Terraform and CloudFormation configuration files. Developer focused infrastructure as code security with Snyk allows you to test and monitor Terraform modules and Kubernetes YAML, JSON, and Helm charts to detect configuration issues that could open your deployments to attack and malicious behavior.
 
-In this hands-on workshop we will achieve the follow:
+In this hands-on workshop we will achieve the following:
 
 * [Step 1 Fork the Springboot Employee API Application](#step-1-fork-the-springboot-employee-api-application)
 * [Step 2 Configure GitHub Integration](#step-2-configure-github-integration)
@@ -72,7 +72,7 @@ Note: As the access token, you can either use your DockerHub password or an [acc
 
 ## Step 4 Test using the Add to Project Docker Hub Integration
 
-You may already have images in your Dockerhub Registries but lets go and add a new one to your Docker Hub account.
+You may already have images in your Docker Hub Registries but let's go and add a new one to your Docker Hub account.
 
 * Login to Docker Hub as shown below. These will be the same credentials you used in Step 3 above.
 
@@ -93,7 +93,7 @@ docker.io/pasapples/springbootemployee:multi-stage-add-layers
 
 * Run the following commands to TAG and PUSH the image to your Docker Hub account.
 
-Note: Replace DOCKER_HUB_USERNAME with your Docker Bub username.
+Note: Replace DOCKER_HUB_USERNAME with your Docker Hub username.
 
 ```bash
 $ docker tag pasapples/springbootemployee:multi-stage-add-layers DOCKER_HUB_USERNAME/springbootemployee:multi-stage-add-layers
