@@ -302,7 +302,7 @@ Learn more: https://docs.snyk.io/products/snyk-container/getting-around-the-snyk
 * Finally, can monitor container images using the "**snyk container monitor**" command as shown below, please perform this step now using a different container image this time
 
 ```bash
-$ snyk container monitor pasapples/springbootemployee:multi-stage-add-layers --org=workshops-admin-org
+$ snyk container monitor pasapples/springbootemployee:multi-stage-add-layers
 
 Monitoring pasapples/springbootemployee:multi-stage-add-layers (docker-image|pasapples/springbootemployee)...
 
